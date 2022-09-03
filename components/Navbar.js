@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Navmenu from "./Navmenu";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useAccount, useDisconnect } from "wagmi";
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
