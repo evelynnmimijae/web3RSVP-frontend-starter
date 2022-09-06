@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import getRandomImage from "../utils/getRandomImage";
+import { ethers } from "ethers";
+import connectContract from "../utils/connectContract";
 
 export default function CreateEvent() {
   const [eventName, setEventName] = useState("");
@@ -16,7 +19,58 @@ export default function CreateEvent() {
     e.preventDefault();
     console.log("Form submitted")
   }
+  const body = {
+    name: eventName,
+    description: eventDescription,
+    link: eventLink,
+    image: getRandomImage(),
+  };
+  try {
+    const response = await fetch("/api/store-event-data", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    if (response.status !== 200) {
+      alert("Oops! Something went wrong. Please refresh and try again.");
+    } else {
+      console.log("Form successfully submitted!");
+      let responseJSON = await response.json();
+      await createEvent(responseJSON.cid);
+    }
+    // check response, if success is false, dont take them to success page
+  } catch (error) {
+    alert(
+      `Oops! Something went wrong. Please refresh and try again. Error ${error}`
+    );
+  }
+}
+const createEvent = async (cid) => {
+  try {
+    const rsvpContract = connectContract();
 
+    if (rsvpContract) {
+      let deposit = ethers.utils.parseEther(refund);
+      let eventDateAndTime = new Date(`${eventDate} ${eventTime}`);
+      let eventTimestamp = eventDateAndTime.getTime();
+      let eventDataCID = cid;
+
+      const txn = await rsvpContract.createNewEvent(
+        eventTimestamp,
+        deposit,
+        maxCapacity,
+        eventDataCID,
+        { gasLimit: 900000 }
+      );
+      console.log("Minting...", txn.hash);
+      console.log("Minted -- ", txn.hash);
+    } else {
+      console.log("Error getting contract.");
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
   
 
   useEffect(() => {
