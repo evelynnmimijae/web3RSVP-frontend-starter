@@ -1,3 +1,5 @@
+import { gql } from "@apollo/client";
+import client from "../../apollo-client";
 import Head from "next/head";
 
 import {
@@ -7,7 +9,8 @@ import {
   LinkIcon
 } from "@heroicons/react/outline";
 
-function Event() {
+function Event({ event }) {
+  console.log("EVENT:", event)
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <Head>
@@ -63,5 +66,41 @@ function Event() {
 export default Event;
 
 export async function getServerSideProps() {
+  const { id } = context.params;
 
+  const { data } = await client.query({
+    query: gql`
+      query Event($id: String!) {
+        event(id: $id) {
+          id
+          eventID
+          name
+          description
+          link
+          eventOwner
+          eventTimestamp
+          maxCapacity
+          deposit
+          totalRSVPs
+          totalConfirmedAttendees
+          imageURL
+          rsvps {
+            id
+            attendee {
+              id
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      id: id,
+    },
+  });
+
+  return {
+    props: {
+      event: data.event,
+    },
+  };
 }
