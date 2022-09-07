@@ -25,8 +25,7 @@ export default function CreateEvent() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log("Form submitted")
-  }
+    
   const body = {
     name: eventName,
     description: eventDescription,

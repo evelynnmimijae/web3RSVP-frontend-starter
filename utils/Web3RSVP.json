@@ -1,4 +1,8 @@
-"abi" : [
+{
+  "_format": "hh-sol-artifact-1",
+  "contractName": "Web3RSVP",
+  "sourceName": "contracts/Web3RSVP.sol",
+  "abi" : [
     {
       "anonymous": false,
       "inputs": [
@@ -228,3 +232,4 @@
       "type": "function"
     }
   ]
+}
