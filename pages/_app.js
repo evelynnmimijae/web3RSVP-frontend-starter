@@ -33,9 +33,6 @@ export default function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
           </Layout>
         </ApolloProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
       </RainbowKitProvider>
     </WagmiConfig>
   );
