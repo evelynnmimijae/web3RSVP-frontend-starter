@@ -2,8 +2,8 @@ import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { ConnectButton } from "@rainbow-me/rainbowkit"; 
 import { useAccount } from "wagmi";
-import EventCard from "../../components/EventCard";
 import Dashboard from "../../components/Dashboard";
+import EventCard from "../../components/EventCard";
 
 const MY_UPCOMING_RSVPS = gql`
   query Account($id: String) {
@@ -20,10 +20,11 @@ const MY_UPCOMING_RSVPS = gql`
     }
   }
 `;
+
 export default function MyUpcomingRSVPs() {
   const { data: account } = useAccount();
 
-  const id = account ? account.address.toLocaleLowerCase() : "";
+  const id = account ? account.address.toLowerCase() : "";
   const [currentTimestamp, setEventTimestamp] = useState(new Date ().getTime());
   const { loading, error, data } = useQuery( MY_UPCOMING_RSVPS, {
     variables: { id },
@@ -42,6 +43,7 @@ if (error)
       <p>`Error! ${error.message}`</p>
     </Dashboard>
   );
+
   return (
     <Dashboard page="rsvps" isUpcoming={true}>
       {account ? (

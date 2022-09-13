@@ -2,8 +2,8 @@ import { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount } from "wagmi";
-import EventCard from "../../components/EventCard";
 import Dashboard from "../../components/Dashboard";
+import EventCard from "../../components/EventCard";
 
 const MY_UPCOMING_EVENTS = gql`
   query Events($eventOwner: String, $currentTimestamp: String) {
@@ -21,6 +21,7 @@ const MY_UPCOMING_EVENTS = gql`
     }
   }
 `;
+
 export default function MyUpcomingEvents() {
   const { data: account } = useAccount();
 
