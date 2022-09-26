@@ -109,17 +109,6 @@ const createEvent = async (cid) => {
           name="description"
           content="Create your virtual event on the blockchain"
         />
-        <script>
-          if (
-            localStorage.getItem('color-theme') === "dark" ||
-            (!('color-theme' in localStorage) && 
-            window.matchMedia('(prefers-color-scheme: dark)').matches)
-          ) {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        </script>
       </Head>
       <section className="relative py-12">
       {loading && (
