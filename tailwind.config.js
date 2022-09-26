@@ -17,3 +17,13 @@ module.exports = {
     require("@tailwindcss/forms"),
   ],
 };
+
+module.exports = {
+  plugins: [
+    require('flowbite/plugin')
+  ]
+}
+
+module.exports = {
+  darkMode: 'class'
+}

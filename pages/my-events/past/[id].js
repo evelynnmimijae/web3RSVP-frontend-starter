@@ -102,6 +102,17 @@ function PastEvent({ event }) {
         <Head>
           <title>My Dashboard | web3rsvp</title>
           <meta name="description" content="Manage your events and RSVPs" />
+          <script>
+            if (
+              localStorage.getItem('color-theme') === 'dark' ||
+              (!('color-scheme' in localStorage) &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+              document.documentElement.classList.add('dark');
+            } else {
+              document.documentElement.classList.remove('dark');
+            }
+          </script>
         </Head>
         <div className="flex flex-wrap py-8">
           <DashboardNav page={"events"} />
